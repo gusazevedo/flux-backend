@@ -4,6 +4,8 @@ import {
   TypeBoxTypeProvider,
 } from '@fastify/type-provider-typebox';
 
+import authPlugin from './plugins/auth';
+import { authRoutes } from './routes/auth/index';
 import { healthRoutes } from './routes/health/index';
 
 export function buildApp() {
@@ -11,7 +13,9 @@ export function buildApp() {
     .withTypeProvider<TypeBoxTypeProvider>();
 
   app.register(cors);
+  app.register(authPlugin);
   app.register(healthRoutes);
+  app.register(authRoutes);
 
   return app;
 }
